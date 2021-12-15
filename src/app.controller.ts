@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpException,
   HttpStatus,
   Post,
@@ -18,5 +19,10 @@ export class AppController {
       return this.appService.facebookMessages(body.entry);
     }
     throw new HttpException('', HttpStatus.NOT_FOUND);
+  }
+
+  @Get()
+  testDomain(): string {
+    return 'Backend Masterbag corriendo';
   }
 }
