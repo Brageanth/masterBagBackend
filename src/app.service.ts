@@ -1,6 +1,5 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
-import console from 'console';
 
 @Injectable()
 export class AppService {
@@ -27,7 +26,7 @@ export class AppService {
   facebookMessages(entry: Array<any>): string {
     entry.forEach((pEntry: any) =>
       pEntry.messaging.map((message: any) => {
-        console.log(message);
+        console.log('message faceboko', message);
         this.addRecordMonday('1529753026');
       }),
     );
