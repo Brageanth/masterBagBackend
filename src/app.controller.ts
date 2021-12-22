@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Post,
   Query,
+  Req,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { FacebookMessageDto, FacebookVerificationDto } from './dto';
@@ -15,7 +16,8 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Post('facebookMessages')
-  facebookMessagesWebhook(@Body() body: FacebookMessageDto): string {
+  facebookMessagesWebhook(@Body() body: any, @Req() req): string {
+    console.log('body', req.body);
     if (body?.object === 'page') {
       return this.appService.facebookMessages(body.entry);
     }
