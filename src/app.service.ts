@@ -24,12 +24,13 @@ export class AppService {
   }
 
   facebookMessages(entry: Array<any>): string {
-    entry.forEach((pEntry: any) =>
-      pEntry.messaging.map((message: any) => {
+    entry.forEach((pEntry: any) => {
+      console.log(pEntry);
+      return pEntry.messaging.map((message: any) => {
         console.log('message faceboko', message);
         this.addRecordMonday('1529753026');
-      }),
-    );
+      });
+    });
     return 'EVENT_RECEIVED';
   }
 }
