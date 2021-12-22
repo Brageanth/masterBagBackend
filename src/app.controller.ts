@@ -15,15 +15,17 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Post('facebookMessages')
-  facebookMessagesWebhook(
-    @Body() body: FacebookMessageDto,
-    @Query() query: FacebookVerificationDto,
-  ): string {
-    if (query && query['hub.verify_token'] === 'masterBagVerification') {
-      return query['hub.challenge'];
-    }
+  facebookMessagesWebhook(@Body() body: FacebookMessageDto): string {
     if (body?.object === 'page') {
       return this.appService.facebookMessages(body.entry);
+    }
+    throw new HttpException('', HttpStatus.NOT_FOUND);
+  }
+
+  @Get('facebookMessages')
+  facebookMessagesWebhookGet(@Query() query: FacebookVerificationDto): string {
+    if (query && query['hub.verify_token'] === 'masterBagVerification') {
+      return query['hub.challenge'];
     }
     throw new HttpException('', HttpStatus.NOT_FOUND);
   }
