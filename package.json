@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "cp -R ~/masterBagBackend/src/secrets ~/masterBagBackend/dist && nest build",
+    "build": "sudo cp -R ~/masterBagBackend/src/secrets ~/masterBagBackend/dist && nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "cp -R ./src/secrets ./dist && nest start --watch",
