@@ -1,6 +1,6 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
-import { map } from 'rxjs';
+import { lastValueFrom, map } from 'rxjs';
 
 @Injectable()
 export class AppService {
@@ -25,20 +25,23 @@ export class AppService {
   }
 
   getFacebookUser(id: string): any {
-    return this.httpService
-      .request({
+    console.log(
+      `https://graph.facebook.com/${id}?fields=name&access_token=${process.env.FACEBOOK_APP_ID}|${process.env.FACEBOOK_APP_SECRET}`,
+    );
+    return lastValueFrom(
+      this.httpService.request({
         method: 'get',
-        url: `https://graph.facebook.com/${id}?fields=name&access_token=${process.env.FACEBOOK_API_TOKEN}`,
-      })
-      .pipe(map((res: any) => res.data));
+        url: `https://graph.facebook.com/${id}?fields=name&access_token=${process.env.FACEBOOK_APP_ID}|${process.env.FACEBOOK_APP_SECRET}`,
+      }),
+    )
+      .then((res) => console.log('response', res))
+      .catch((a) => console.log(a));
   }
 
   facebookMessages(entry: Array<any>): string {
     entry.forEach((pEntry: any) =>
       pEntry.changes.map((message: any) => {
-        console.log('message faceboko', message);
         const userName = this.getFacebookUser(message.value.sender.id);
-        console.log('userName', userName);
         this.addRecordMonday('1529753026', { name: userName });
       }),
     );

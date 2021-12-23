@@ -12,10 +12,9 @@ async function bootstrap() {
       path.resolve(__dirname, './secrets/masterbag.com.co.crt'),
     ),
   };
-  const app = await NestFactory.create(
-    AppModule,
-    !process.env.NODE_ENV && { httpsOptions },
-  );
+  const app = process.env.NODE_ENV
+    ? await NestFactory.create(AppModule)
+    : await NestFactory.create(AppModule, { httpsOptions });
   app.enableCors();
   await app.listen(process.env.PORT || 3000);
 }
