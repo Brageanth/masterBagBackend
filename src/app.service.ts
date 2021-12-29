@@ -39,12 +39,13 @@ export class AppService {
   }
 
   facebookMessages(entry: Array<any>): string {
-    entry.forEach((pEntry: any) =>
+    entry.forEach((pEntry: any) => {
+      console.log(pEntry);
       pEntry.changes.map((message: any) => {
         const userName = this.getFacebookUser(message.value.sender.id);
         this.addRecordMonday('1529753026', { name: userName });
-      }),
-    );
+      });
+    });
     return 'EVENT_RECEIVED';
   }
 }
