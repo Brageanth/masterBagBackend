@@ -25,27 +25,22 @@ export class AppService {
   }
 
   getFacebookUser(id: string): any {
-    console.log(
-      `https://graph.facebook.com/${id}?fields=name&access_token=${process.env.FACEBOOK_APP_ID}|${process.env.FACEBOOK_APP_SECRET}`,
-    );
     return lastValueFrom(
       this.httpService.request({
         method: 'get',
         url: `https://graph.facebook.com/${id}?fields=name&access_token=${process.env.FACEBOOK_APP_ID}|${process.env.FACEBOOK_APP_SECRET}`,
       }),
-    )
-      .then((res) => console.log('response', res))
-      .catch((a) => console.log(a));
+    ).catch((a) => console.log(a));
   }
 
   facebookMessages(entry: Array<any>): string {
-    entry.forEach((pEntry: any) => {
-      console.log(pEntry);
-      pEntry.changes.map((message: any) => {
-        const userName = this.getFacebookUser(message.value.sender.id);
+    entry.forEach((pEntry: any) =>
+      pEntry.messaging.map((message: any) => {
+        console.log('message: ', message);
+        const userName = this.getFacebookUser(message.sender.id);
         this.addRecordMonday('1529753026', { name: userName });
-      });
-    });
+      }),
+    );
     return 'EVENT_RECEIVED';
   }
 }
