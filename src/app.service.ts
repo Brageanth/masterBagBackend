@@ -30,7 +30,7 @@ export class AppService {
         method: 'get',
         url: `https://graph.facebook.com/${id}?fields=name&access_token=${process.env.FACEBOOK_APP_ID}|${process.env.FACEBOOK_APP_SECRET}`,
       }),
-    ).catch((a) => console.log(a));
+    );
   }
 
   facebookMessages(entry: Array<any>): string {
