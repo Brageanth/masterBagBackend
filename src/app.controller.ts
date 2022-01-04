@@ -17,6 +17,7 @@ export class AppController {
   @Post('facebookMessages')
   facebookMessagesWebhook(@Body() body: FacebookMessageDto): string {
     if (body?.object === 'page') {
+      console.log(body, body.entry);
       return this.appService.facebookMessages(body.entry);
     }
     throw new HttpException('', HttpStatus.NOT_FOUND);
