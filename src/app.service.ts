@@ -7,7 +7,7 @@ export class AppService {
   constructor(private httpService: HttpService) {}
 
   addRecordMonday(boardId: string, data: any) {
-    const query = `mutation { create_item (board_id: ${boardId},  item_name: ${data.name}) { id }}`;
+    const query = `mutation { create_item (board_id: ${boardId},  item_name: "${data.name}") { id }}`;
 
     this.httpService
       .request({
@@ -21,7 +21,7 @@ export class AppService {
           query: query,
         }),
       })
-      .subscribe(console.log);
+      .subscribe();
   }
 
   getFacebookUser(id: string): any {
