@@ -21,7 +21,7 @@ export class AppService {
           query: query,
         }),
       })
-      .subscribe();
+      .subscribe(console.log);
   }
 
   getFacebookUser(id: string): any {
