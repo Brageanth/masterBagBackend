@@ -36,8 +36,13 @@ export class AppService {
   facebookMessages(entry: Array<any>): string {
     entry.forEach((pEntry: any) =>
       pEntry.messaging.map((message: any) => {
-        //        const userName = this.getFacebookUser(message.sender.id);
-        //        this.addRecordMonday('1529753026', { name: userName });
+        let userName: string;
+        if (message.sender.id !== '1234567890987654') {
+          userName = this.getFacebookUser(message.sender.id);
+        } else {
+          userName = 'Test Name';
+        }
+        this.addRecordMonday('1529753026', { name: userName });
       }),
     );
     return 'EVENT_RECEIVED';
