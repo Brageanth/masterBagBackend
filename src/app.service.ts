@@ -36,7 +36,7 @@ export class AppService {
   facebookMessages(entry: Array<any>): string {
     entry.forEach((pEntry: any) =>
       pEntry.messaging.map((message: any) => {
-        const userName = this.getFacebookUser(message.sender.id);
+        //        const userName = this.getFacebookUser(message.sender.id);
         //        this.addRecordMonday('1529753026', { name: userName });
       }),
     );
