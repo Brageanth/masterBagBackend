@@ -1,6 +1,6 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
-import { lastValueFrom, map } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable()
 export class AppService {
@@ -36,13 +36,8 @@ export class AppService {
   facebookMessages(entry: Array<any>): string {
     entry.forEach((pEntry: any) =>
       pEntry.messaging.map((message: any) => {
-        let userName: string;
-        if (message.sender.id !== '1234567890987654') {
-          userName = this.getFacebookUser(message.sender.id);
-        } else {
-          userName = 'Test Name';
-        }
-        this.addRecordMonday('1529753026', { name: userName });
+        //const userName = this.getFacebookUser(message.sender.id);
+        this.addRecordMonday('1529753026', { name: message.sender.id });
       }),
     );
     return 'EVENT_RECEIVED';
